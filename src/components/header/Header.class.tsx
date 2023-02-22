@@ -11,8 +11,8 @@ import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 const mapStateToProps = (state:RootState) => {
   return {
-    language: state.language,
-    languageList: state.languageList
+    language: state.language.language,
+    languageList: state.language.languageList
   }
 }
 const mapDispatchToProps = (dispatch:Dispatch) => {
