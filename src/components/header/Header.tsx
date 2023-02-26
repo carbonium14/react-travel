@@ -38,7 +38,7 @@ export const Header:React.FC=()=>{
     }
   }
   const onLogout = () => {
-    dispatch(UserSlice.actions.logout)
+    dispatch(UserSlice.actions.logout())
     navigate('/')
   }
     return (
