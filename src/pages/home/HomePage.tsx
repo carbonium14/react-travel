@@ -1,6 +1,5 @@
 import React from "react";
-import styles from './HomePage.module.css'
-import { Header, Footer, Carousel, SideMenu, ProductCollection, BussinessParteners } from '../../components'
+import { Carousel, SideMenu, ProductCollection, BussinessParteners } from '../../components'
 import { Row, Col, Typography, Spin } from 'antd'
 import sideImage from '../../assets/images/sider_2019_12-09.png';
 import sideImage2 from '../../assets/images/sider_2019_02-04.png';
@@ -9,7 +8,7 @@ import { withTranslation, WithTranslation } from 'react-i18next'
 import { connect } from "react-redux";
 import { RootState } from "../../redux/store";
 import { giveMeDataActionCreator} from '../../redux/recommendProducts/recommendProductsActions'
-
+import { MainLayout } from "../../layouts/mainLayout";
 const mapStateToProps = (state: RootState) => {
     return {
         loading: state.recommendProducts.loading,
@@ -43,8 +42,7 @@ class HomePageComponent extends React.Component<PropsType> {
             return <div>{error}</div>
         }
         return <>
-        <Header></Header>
-        <div className={styles['page-content']}>
+        <MainLayout>
             <Row style={{marginTop:'20px'}}>
                 <Col span={6}>
                     <SideMenu></SideMenu>
@@ -69,8 +67,7 @@ class HomePageComponent extends React.Component<PropsType> {
                 products={productList[2].touristRoutes}
             />
             <BussinessParteners></BussinessParteners>
-        </div>
-        <Footer></Footer>
+        </MainLayout>
       </>
     }
 }

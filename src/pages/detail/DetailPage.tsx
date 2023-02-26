@@ -2,11 +2,12 @@ import React, { useEffect } from "react";
 import { useParams } from 'react-router-dom'
 import { Spin, Row, Col, DatePicker, Divider, Typography, Anchor, Menu } from "antd";
 import styles from './DetailPage.module.css'
-import { Header, Footer, ProductIntro, ProductComments } from "../../components";
+import { ProductIntro, ProductComments } from "../../components";
 import locale from 'antd/es/date-picker/locale/zh_CN';
 import { commentMockData } from './mockup'
 import { getProductDetail } from "../../redux/productDetail/slice";
 import { useSelector, useAppDispatch } from "../../redux/hooks";
+import { MainLayout } from "../../layouts/mainLayout";
 const { RangePicker } = DatePicker;
 type MatchParams = {
     touristRouteId: string;
@@ -34,8 +35,7 @@ export const DetailPage: React.FC = () => {
         return <div>{error}</div>
     }
     return <>
-        <Header></Header>
-        <div className={styles["page-content"]}>
+        <MainLayout>
             <div className={styles["product-intro-container"]}>
                 <Row>
                     <Col span={13}>
@@ -90,7 +90,6 @@ export const DetailPage: React.FC = () => {
                     <ProductComments data={commentMockData}></ProductComments>
                 </div>
             </div>
-        </div>
-        <Footer></Footer>
+        </MainLayout>
     </>
 }
