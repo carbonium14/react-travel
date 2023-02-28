@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useParams } from 'react-router-dom'
-import { Spin, Row, Col, DatePicker, Divider, Typography, Anchor, Menu } from "antd";
+import { Spin, Row, Col, DatePicker, Divider, Typography, Anchor, Menu, Button } from "antd";
 import styles from './DetailPage.module.css'
 import { ProductIntro, ProductComments } from "../../components";
 import locale from 'antd/es/date-picker/locale/zh_CN';
@@ -8,6 +8,8 @@ import { commentMockData } from './mockup'
 import { getProductDetail } from "../../redux/productDetail/slice";
 import { useSelector, useAppDispatch } from "../../redux/hooks";
 import { MainLayout } from "../../layouts/mainLayout";
+import { ShoppingCartOutlined } from "@ant-design/icons";
+import { addShoppingCartItem } from "../../redux/shoppingCart/slice";
 const { RangePicker } = DatePicker;
 type MatchParams = {
     touristRouteId: string;
@@ -23,6 +25,8 @@ export const DetailPage: React.FC = () => {
             dispatch(getProductDetail(touristRouteId))
         }
     }, [dispatch, touristRouteId])
+    const jwt = useSelector(state => state.user.token) as string
+    const shoppingCartLoading = useSelector(state => state.shoppingCart.loading)
     if (loading) {
         return <Spin size="large" style={{
             marginTop: '200px', 
@@ -44,6 +48,11 @@ export const DetailPage: React.FC = () => {
                             pictures={product.touristRoutePictures.map((p) => p.url)}></ProductIntro>
                     </Col>
                     <Col span={11}>
+                        <Button style={{marginTop: '50px', marginBottom: '30px', display: 'block'}} 
+                        type='primary' danger loading={shoppingCartLoading} onClick={() => dispatch(addShoppingCartItem({jwt, touristRouteId: product.id}))}>
+                            <ShoppingCartOutlined></ShoppingCartOutlined>
+                            放入购物车
+                        </Button>
                         <RangePicker locale={locale} open style={{marginTop: '20px'}}/>
                     </Col>
                 </Row>

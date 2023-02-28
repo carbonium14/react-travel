@@ -41,6 +41,8 @@ export const Header:React.FC=()=>{
     dispatch(UserSlice.actions.logout())
     navigate('/')
   }
+  const shoppingCart = useSelector(state => state.shoppingCart.items)
+  const shoppingCartLoading = useSelector(state => state.shoppingCart.loading)
     return (
       <div className={styles['app-header']}>
         <div className={styles['top-header']}>
@@ -63,7 +65,7 @@ export const Header:React.FC=()=>{
                     {t('header.welcome')}
                     <Typography.Text>{username}&nbsp;&nbsp;&nbsp;</Typography.Text>
                   </div>
-                  <Button>{t('header.shoppingCart')}</Button>
+                  <Button loading={shoppingCartLoading} onClick={() => navigate('/shoppingCart')}>{t('header.shoppingCart')}({shoppingCart.length})</Button>
                   <Button onClick={onLogout}>{t('header.signOut')}</Button>
                 </Button.Group> : 
                 <Button.Group className={styles['button-group']}>
